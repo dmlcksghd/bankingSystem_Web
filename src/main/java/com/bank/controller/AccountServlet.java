@@ -17,14 +17,14 @@ public class AccountServlet extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String customerIdParam = request.getParameter("customerId");
         if (customerIdParam == null || customerIdParam.isEmpty()) {
-            response.sendRedirect("index.jsp");
+            response.sendRedirect("bank/accounts.jsp");
             return;
         }
 
         int customerId = Integer.parseInt(customerIdParam);
         List<AccountDTO> accounts = accountService.getAllAccountsByCustomerId(customerId);
         request.setAttribute("accounts", accounts);
-        request.getRequestDispatcher("/accounts.jsp").forward(request, response);
+        request.getRequestDispatcher("accounts.jsp").forward(request, response);
     }
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -35,7 +35,8 @@ public class AccountServlet extends HttpServlet {
         if (customerIdParam == null || balanceParam == null || status == null ||
                 customerIdParam.isEmpty() || balanceParam.isEmpty() ||
                 (!status.equals("ACTIVE") && !status.equals("INACTIVE") && !status.equals("CLOSED"))) {
-            response.sendRedirect("addAccount.jsp");
+            // 컨텍스트 경로를 포함하여 동적 경로로 수정
+            response.sendRedirect(request.getContextPath() + "/bank/addAccount.jsp");
             return;
         }
 
@@ -49,9 +50,9 @@ public class AccountServlet extends HttpServlet {
                 .build();
 
         if (accountService.addAccount(account)) {
-            response.sendRedirect("accounts?customerId=" + customerId);
+            response.sendRedirect(request.getContextPath() + "/accounts?customerId=" + customerId);
         } else {
-            response.sendRedirect("addAccount.jsp");
+            response.sendRedirect(request.getContextPath() + "/bank/addAccount.jsp");
         }
     }
 }
