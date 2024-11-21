@@ -15,20 +15,12 @@ public class AccountService {
 
     // 특정 고객의 모든 계좌 조회
     public List<AccountDTO> getAccountsByCustomerId(int customerId) {
-        if (customerId <= 0) {
-            throw new IllegalArgumentException("유효하지 않은 고객 ID입니다.");
-        }
-        System.out.println("Fetching accounts for customerId: " + customerId); // 고객 ID 확인 로그
 
         List<AccountDTO> accounts = accountDAO.getAccountsByCustomerId(customerId);
-        if (accounts == null || accounts.isEmpty()) {
-            System.out.println("No accounts found in DAO for customerId: " + customerId); // DAO에서 데이터 없음 로그
-        } else {
-            System.out.println("Accounts fetched from DAO: " + accounts); // DAO에서 가져온 데이터 확인 로그
-        }
-
+ 
         return accounts;
     }
+
 
 
     // 계좌 잔액 업데이트
@@ -39,7 +31,6 @@ public class AccountService {
         if (newBalance < 0) {
             throw new IllegalArgumentException("잔액이 부족합니다.");
         }
-        System.out.println("Updating balance for accountNo: " + accountNo + " to new balance: " + newBalance); // 잔액 업데이트 로그
         return accountDAO.updateBalance(accountNo, newBalance);
     }
 
@@ -51,7 +42,6 @@ public class AccountService {
         if (!(status.equalsIgnoreCase("ACTIVE") || status.equalsIgnoreCase("INACTIVE"))) {
             throw new IllegalArgumentException("변경할 수 없는 계좌 상태입니다.");
         }
-        System.out.println("Updating account status for accountNo: " + accountNo + " to status: " + status); // 상태 변경 로그
         return accountDAO.updateAccountStatus(accountNo, status);
     }
 }

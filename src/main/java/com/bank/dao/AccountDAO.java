@@ -19,8 +19,6 @@ public class AccountDAO {
 	    String sql = "SELECT ACCOUNT_NO, CUSTOMER_ID, BALANCE, STATUS, CREATED_AT, UPDATED_AT " +
 	                 "FROM ACCOUNTS WHERE CUSTOMER_ID = ?";
 
-	    System.out.println("Executing SQL: " + sql + " with customerId=" + customerId); // SQL 실행 로그
-
 	    try (Connection conn = DBUtil.getConnection();
 	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
@@ -29,15 +27,12 @@ public class AccountDAO {
 	            while (rs.next()) {
 	                AccountDTO account = makeAccount(rs);
 	                accounts.add(account);
-	                System.out.println("Fetched account: " + account); // 가져온 데이터 로그
 	            }
 	        }
 	    } catch (SQLException e) {
 	        System.err.println("Error retrieving accounts for customerId: " + customerId);
 	        e.printStackTrace();
 	    }
-
-	    System.out.println("Accounts retrieved from DB: " + accounts); // 최종 데이터 확인 로그
 	    return accounts;
 	}
 
