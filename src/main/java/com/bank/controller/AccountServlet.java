@@ -9,50 +9,41 @@ import javax.servlet.http.*;
 import java.io.IOException;
 import java.util.List;
 
-@WebServlet("/accounts")
+@WebServlet("/bank/accounts")
 public class AccountServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final AccountService accountService = new AccountService();
 
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String customerIdParam = request.getParameter("customerId");
-        if (customerIdParam == null || customerIdParam.isEmpty()) {
-            response.sendRedirect("bank/accounts.jsp");
+    // 계좌 조회 처리 (GET 요청)
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        HttpSession session = request.getSession(false);
+        if (session == null) {
+            response.sendRedirect(request.getContextPath() + "/bank/login.jsp");
             return;
         }
 
-        int customerId = Integer.parseInt(customerIdParam);
-        List<AccountDTO> accounts = accountService.getAllAccountsByCustomerId(customerId);
-        request.setAttribute("accounts", accounts);
-        request.getRequestDispatcher("accounts.jsp").forward(request, response);
-    }
+        Integer customerId = (Integer) session.getAttribute("customerId");
+        System.out.println("Customer ID from session: " + customerId); // 세션에서 고객 ID 확인
 
-    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        String customerIdParam = request.getParameter("customerId");
-        String balanceParam = request.getParameter("balance");
-        String status = request.getParameter("status");
-
-        if (customerIdParam == null || balanceParam == null || status == null ||
-                customerIdParam.isEmpty() || balanceParam.isEmpty() ||
-                (!status.equals("ACTIVE") && !status.equals("INACTIVE") && !status.equals("CLOSED"))) {
-            // 컨텍스트 경로를 포함하여 동적 경로로 수정
-            response.sendRedirect(request.getContextPath() + "/bank/addAccount.jsp");
+        if (customerId == null) {
+            response.sendRedirect(request.getContextPath() + "/bank/login.jsp");
             return;
         }
 
-        int customerId = Integer.parseInt(customerIdParam);
-        double balance = Double.parseDouble(balanceParam);
-
-        AccountDTO account = AccountDTO.builder()
-                .customerId(customerId)
-                .balance(balance)
-                .status(status)
-                .build();
-
-        if (accountService.addAccount(account)) {
-            response.sendRedirect(request.getContextPath() + "/accounts?customerId=" + customerId);
+        // AccountService를 통해 데이터 가져오기
+        List<AccountDTO> accounts = accountService.getAccountsByCustomerId(customerId);
+        if (accounts == null || accounts.isEmpty()) {
+            System.out.println("No accounts found for customerId: " + customerId); // 데이터 없음 로그
         } else {
-            response.sendRedirect(request.getContextPath() + "/bank/addAccount.jsp");
+            System.out.println("Accounts retrieved: " + accounts); // 정상적으로 가져온 데이터 로그
         }
+
+        // JSP로 데이터 전달
+        request.setAttribute("accounts", accounts);
+        System.out.println("Accounts set as request attribute: " + accounts); // 전달된 데이터 확인 로그
+
+        request.getRequestDispatcher("/bank/accounts.jsp").forward(request, response);
     }
+
 }

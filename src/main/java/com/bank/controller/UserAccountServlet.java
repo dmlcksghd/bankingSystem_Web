@@ -33,11 +33,13 @@ public class UserAccountServlet extends HttpServlet {
 				// 로그인 성공: 세션에 사용자 정보 저장 및 main.jsp로 이동
 				HttpSession session = request.getSession();
 				session.setAttribute("user", user);
+				session.setAttribute("customerId", user.getCustomerId());
+				System.out.println("CustomerId in session: " + session.getAttribute("customerId"));
 				response.sendRedirect(request.getContextPath() + "/bank/main.jsp");
 			} else {
 				// 로그인 실패: 에러 메시지와 함께 login.jsp로 다시 이동
 				request.setAttribute("errorMessage", "아이디 또는 비밀번호가 잘못되었습니다.");
-				request.getRequestDispatcher("login.jsp").forward(request, response);
+				request.getRequestDispatcher("/bank/login.jsp").forward(request, response);
 			}
 		} else if ("register".equals(action)) {
 			// 기존 회원가입 로직
@@ -57,10 +59,10 @@ public class UserAccountServlet extends HttpServlet {
 
 			if (isSuccess) {
 				request.setAttribute("message", "회원가입에 성공했습니다!");
-				request.setAttribute("redirect", "main.jsp");
+				request.setAttribute("redirect", "/bank/main.jsp");
 			} else {
 				request.setAttribute("message", "회원가입에 실패했습니다.");
-				request.setAttribute("redirect", "register.jsp");
+				request.setAttribute("redirect", "/bank/register.jsp");
 			}
 			request.getRequestDispatcher("/result.jsp").forward(request, response);
 		}
