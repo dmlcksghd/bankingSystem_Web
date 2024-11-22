@@ -19,6 +19,7 @@ public class AccountServlet extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession(false);
         if (session == null) {
+        	response.getWriter().write("<option value=''>로그인이 필요합니다.</option>");
             response.sendRedirect(request.getContextPath() + "/bank/login.jsp");
             return;
         }
@@ -32,9 +33,9 @@ public class AccountServlet extends HttpServlet {
 
         // AccountService를 통해 데이터 가져오기
         List<AccountDTO> accounts = accountService.getAccountsByCustomerId(customerId);
+        
         // JSP로 데이터 전달
         request.setAttribute("accounts", accounts);
-
         request.getRequestDispatcher("/bank/accounts.jsp").forward(request, response);
     }
     

@@ -6,32 +6,24 @@ import com.bank.dao.TransactionDAO;
 import com.bank.dto.TransactionDTO;
 
 public class TransactionService {
-	private final TransactionDAO transactionDAO;
+    private final TransactionDAO transactionDAO = new TransactionDAO();
 
-	public TransactionService() {
-		this.transactionDAO = new TransactionDAO();
-	}
+    // 특정 계좌의 모든 거래 내역 조회
+    public List<TransactionDTO> getAllTransactionsByAccountNo(String accountNo) {
+        if (accountNo == null || accountNo.isEmpty()) {
+            throw new IllegalArgumentException("유효하지 않은 계좌 번호입니다.");
+        }
+        return transactionDAO.getTransactionsByAccountNo(accountNo);
+    }
 
-	// 특정 계좌의 모든 거래 조회
-	public List<TransactionDTO> getAllTransactionsByAccountNo(String accountNo) {
-		if (accountNo == null || accountNo.isEmpty()) {
-			throw new IllegalArgumentException("계좌 번호는 null이거나 비어 있을 수 없습니다.");
-		}
-		return transactionDAO.getAllTransactionsByAccountNo(accountNo);
-	}
-
-	// 거래 추가
-	public boolean addTransaction(TransactionDTO transaction) {
-		if (!isValidTransaction(transaction)) {
-			throw new IllegalArgumentException("유효하지 않은 거래 정보입니다.");
-		}
-		return transactionDAO.addTransaction(transaction);
-	}
-
-	// 거래 검증 로직
-	private boolean isValidTransaction(TransactionDTO transaction) {
-		return transaction != null && transaction.getAccountNo() != null && !transaction.getAccountNo().isEmpty()
-				&& transaction.getAmount() > 0 && (transaction.getType().equals("DEPOSIT")
-						|| transaction.getType().equals("WITHDRAWAL") || transaction.getType().equals("TRANSFER"));
-	}
+    // 거래 데이터 유효성 검증
+    private boolean isValidTransaction(TransactionDTO transaction) {
+        return transaction != null &&
+               transaction.getAccountNo() != null &&
+               !transaction.getAccountNo().isEmpty() &&
+               transaction.getAmount() > 0 &&
+               (transaction.getType().equalsIgnoreCase("DEPOSIT") ||
+                transaction.getType().equalsIgnoreCase("WITHDRAWAL") ||
+                transaction.getType().equalsIgnoreCase("TRANSFER"));
+    }
 }

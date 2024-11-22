@@ -3,14 +3,19 @@ package com.bank.service;
 import java.util.List;
 
 import com.bank.dao.AccountDAO;
+import com.bank.dao.TransactionDAO;
 import com.bank.dto.AccountDTO;
+import com.bank.dto.TransactionDTO;
 
 public class AccountService {
     private final AccountDAO accountDAO;
+    private final TransactionDAO transactionDAO;
+    
 
     // 생성자
     public AccountService() {
         this.accountDAO = new AccountDAO();
+        this.transactionDAO = new TransactionDAO();
     }
 
     // 특정 고객의 모든 계좌 조회
@@ -55,13 +60,35 @@ public class AccountService {
     
     // 송금 로직
     public boolean transferAmount(String fromAccountNo, String toAccountNo, double amount) {
-    	if (amount <= 0) {
+        if (amount <= 0) {
             throw new IllegalArgumentException("송금 금액은 0보다 커야 합니다.");
         }
-    	
-    	boolean minus = accountDAO.updateBalance(fromAccountNo, -amount);
-        boolean plus = accountDAO.updateBalance(toAccountNo, amount);
-        
-        return minus && plus;
+
+        // 잔액 업데이트
+        boolean sender = accountDAO.updateBalance(fromAccountNo, -amount);
+        boolean reciever = accountDAO.updateBalance(toAccountNo, amount);
+
+        if (sender && reciever) {
+            // 송금 계좌 트랜잭션 기록
+            transactionDAO.insertTransaction(
+                TransactionDTO.builder()
+                    .accountNo(fromAccountNo)
+                    .amount(amount)
+                    .type("TRANSFER")
+                    .build()
+            );
+            
+            // 입금 계좌 트랜잭션 기록
+            transactionDAO.insertTransaction(
+                TransactionDTO.builder()
+                    .accountNo(toAccountNo)
+                    .amount(amount)
+                    .type("TRANSFER")
+                    .build()
+            );
+            return true;
+        }
+        return false;
     }
+
 }
