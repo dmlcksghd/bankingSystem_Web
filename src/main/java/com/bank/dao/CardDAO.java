@@ -40,7 +40,7 @@ public class CardDAO {
 
 	// 카드 추가
 	public boolean addCard(CardDTO card) {
-		String sql = "INSERT INTO CARDS (ACCOUNT_NO, LIMIT_AMOUNT) VALUES (?, ?)";
+		String sql = "INSERT INTO CARDS (ACCOUNT_NO, LIMIT_AMOUNT, ISSUED_AT) VALUES (?, ?, SYSDATE)";
 
 		try (Connection conn = DBUtil.getConnection(); PreparedStatement st = conn.prepareStatement(sql)) {
 
@@ -48,6 +48,7 @@ public class CardDAO {
 			st.setDouble(2, card.getLimitAmount());
 
 			return st.executeUpdate() > 0;
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
