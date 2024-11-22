@@ -36,12 +36,32 @@ public class AccountService {
 
     // 계좌 상태 변경
     public boolean updateAccountStatus(String accountNo, String status) {
-        if (accountNo == null || accountNo.isEmpty() || status == null || status.isEmpty()) {
-            throw new IllegalArgumentException("유효하지 않은 계좌 번호 또는 상태입니다.");
+    	if (accountNo == null || accountNo.isEmpty()) {
+            throw new IllegalArgumentException("유효하지 않은 계좌 번호입니다.");
         }
-        if (!(status.equalsIgnoreCase("ACTIVE") || status.equalsIgnoreCase("INACTIVE"))) {
+    	
+        // 상태 값이 null인 경우 기본값 설정
+    	if (status == null || status.isEmpty()) {
+            status = "INACTIVE";
+        }
+    	
+    	// 계좌 폐쇄상태에서는 변경 불가
+    	if (!(status.equalsIgnoreCase("ACTIVE") || status.equalsIgnoreCase("INACTIVE"))) {
             throw new IllegalArgumentException("변경할 수 없는 계좌 상태입니다.");
         }
+    	
         return accountDAO.updateAccountStatus(accountNo, status);
+    }
+    
+    // 송금 로직
+    public boolean transferAmount(String fromAccountNo, String toAccountNo, double amount) {
+    	if (amount <= 0) {
+            throw new IllegalArgumentException("송금 금액은 0보다 커야 합니다.");
+        }
+    	
+    	boolean minus = accountDAO.updateBalance(fromAccountNo, -amount);
+        boolean plus = accountDAO.updateBalance(toAccountNo, amount);
+        
+        return minus && plus;
     }
 }

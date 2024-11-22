@@ -20,10 +20,10 @@ public class AccountDAO {
 	                 "FROM ACCOUNTS WHERE CUSTOMER_ID = ?";
 
 	    try (Connection conn = DBUtil.getConnection();
-	         PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	         PreparedStatement st = conn.prepareStatement(sql)) {
 
-	        pstmt.setInt(1, customerId);
-	        try (ResultSet rs = pstmt.executeQuery()) {
+	        st.setInt(1, customerId);
+	        try (ResultSet rs = st.executeQuery()) {
 	            while (rs.next()) {
 	                AccountDTO account = makeAccount(rs);
 	                accounts.add(account);
@@ -49,22 +49,38 @@ public class AccountDAO {
                 .build();
     }
 
-    // 잔액 업데이트
+    // 잔액 업데이트 (초기화, 절대값 변경)
     public boolean updateBalance(String accountNo, double newBalance) {
-        String sql = "UPDATE ACCOUNTS SET BALANCE = ?, UPDATED_AT = SYSDATE WHERE ACCOUNT_NO = ?";
+        String sql = "UPDATE ACCOUNTS SET BALANCE = BALANCE + ?, UPDATED_AT = SYSDATE WHERE ACCOUNT_NO = ?";
+
+        try (Connection conn = DBUtil.getConnection();
+             PreparedStatement st = conn.prepareStatement(sql)) {
+
+            st.setDouble(1, newBalance);
+            st.setString(2, accountNo);
+
+            return st.executeUpdate() > 0;
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return false;
+    }
+    
+    public boolean updateBalanceIncrement(String accountNo, double amount) {
+        String sql = "UPDATE ACCOUNTS SET BALANCE = BALANCE + ?, UPDATED_AT = SYSDATE WHERE ACCOUNT_NO = ?";
 
         try (Connection conn = DBUtil.getConnection();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
-            pstmt.setDouble(1, newBalance);
+            pstmt.setDouble(1, amount);
             pstmt.setString(2, accountNo);
 
-            return pstmt.executeUpdate() > 0; // 성공적으로 업데이트된 경우 true 반환
+            return pstmt.executeUpdate() > 0;
         } catch (SQLException e) {
             e.printStackTrace();
         }
-
         return false;
+    	
     }
 
     // 계좌 상태 업데이트
@@ -72,12 +88,12 @@ public class AccountDAO {
         String sql = "UPDATE ACCOUNTS SET STATUS = ?, UPDATED_AT = SYSDATE WHERE ACCOUNT_NO = ?";
 
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+             PreparedStatement st = conn.prepareStatement(sql)) {
 
-            pstmt.setString(1, status);
-            pstmt.setString(2, accountNo);
+            st.setString(1, status);
+            st.setString(2, accountNo);
 
-            return pstmt.executeUpdate() > 0; // 성공적으로 업데이트된 경우 true 반환
+            return st.executeUpdate() > 0; // 성공적으로 업데이트된 경우 true 반환
         } catch (SQLException e) {
             e.printStackTrace();
         }
