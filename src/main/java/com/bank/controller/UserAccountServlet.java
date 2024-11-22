@@ -65,7 +65,46 @@ public class UserAccountServlet extends HttpServlet {
 				request.setAttribute("redirect", "/bank/register.jsp");
 			}
 			request.getRequestDispatcher("/result.jsp").forward(request, response);
-		}
+		} else if("updateUserId".equals(action)) {
+			// 아이디 변경 처리 로직
+			HttpSession session = request.getSession();
+			Integer customerId = (Integer) session.getAttribute("customerId");
+			String newUserId = request.getParameter("newUserId");
+			
+			if (customerId != null && newUserId != null && !newUserId.trim().isEmpty()) {
+				boolean isSuccess = userAccountService.updateUserId(customerId, newUserId);
+				
+				if (isSuccess) {
+					request.setAttribute("message", "아이디가 성공적으로 변경되었습니다.");
+				} else {
+					request.setAttribute("message", "아이디 변경에 실패 했습니다.");
+				}
+				request.setAttribute("redirect", request.getContextPath() +"/bank/accountManagement.jsp");
+				request.getRequestDispatcher("/bank/result.jsp").forward(request, response);
+			} else {
+				response.sendRedirect(request.getContextPath() + "/bank/accountManagement.jsp");
+			}
+		} else if ("updatePassword".equals(action)) {
+            // 비밀번호 변경 처리 로직
+            HttpSession session = request.getSession(false);
+            Integer customerId = (Integer) session.getAttribute("customerId");
+            String newPassword = request.getParameter("newPassword");
+
+            if (customerId != null && newPassword != null && !newPassword.trim().isEmpty()) {
+                boolean isSuccess = userAccountService.updatePassword(customerId, newPassword);
+
+                if (isSuccess) {
+                    request.setAttribute("message", "비밀번호가 성공적으로 변경되었습니다.");
+                } else {
+                    request.setAttribute("message", "비밀번호 변경에 실패했습니다.");
+                }
+                request.setAttribute("redirect", request.getContextPath() +"/bank/accountManagement.jsp");
+                request.getRequestDispatcher("/bank/result.jsp").forward(request, response);
+            } else {
+                response.sendRedirect(request.getContextPath() + "/bank/accountManagement.jsp");
+            }
+        }
+		
 	}
 
 	@Override

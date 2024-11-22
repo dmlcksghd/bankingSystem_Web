@@ -48,4 +48,21 @@ public class UserAccountService {
             session.invalidate();
         }
     }
+    
+    // 로그인 아이디 변경
+    public boolean updateUserId(int customerId, String newUserId) {
+        if (customerId <= 0 || newUserId == null || newUserId.isEmpty()) {
+            throw new IllegalArgumentException("유효하지 않은 입력 값입니다.");
+        }
+        return userAccountDAO.updateUserId(customerId, newUserId);
+    }
+    
+ // 로그인 비밀번호 변경
+    public boolean updatePassword(int customerId, String newPassword) {
+        if (customerId <= 0 || newPassword == null || newPassword.isEmpty()) {
+            throw new IllegalArgumentException("유효하지 않은 입력 값입니다.");
+        }
+        return userAccountDAO.updatePassword(customerId, newPassword);
+    }
+    
 }

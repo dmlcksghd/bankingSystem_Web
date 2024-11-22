@@ -195,5 +195,31 @@ public class UserAccountDAO {
 	    }
 	    return null;
 	}
+	
+	// 로그인 아이디 변경
+	public boolean updateUserId(int customerId, String newUserId) {
+	    String sql = "UPDATE USER_ACCOUNT SET USER_ID = ?, UPDATED_AT = SYSDATE WHERE CUSTOMER_ID = ?";
+	    try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, newUserId);
+	        pstmt.setInt(2, customerId);
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
+	
+	// 로그인 비밀번호 변경
+	public boolean updatePassword(int customerId, String newPassword) {
+	    String sql = "UPDATE USER_ACCOUNT SET PASSWORD = ?, UPDATED_AT = SYSDATE WHERE CUSTOMER_ID = ?";
+	    try (Connection conn = DBUtil.getConnection(); PreparedStatement pstmt = conn.prepareStatement(sql)) {
+	        pstmt.setString(1, newPassword);
+	        pstmt.setInt(2, customerId);
+	        return pstmt.executeUpdate() > 0;
+	    } catch (SQLException e) {
+	        e.printStackTrace();
+	        return false;
+	    }
+	}
 
 }
