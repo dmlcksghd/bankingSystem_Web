@@ -1,0 +1,117 @@
+@charset "UTF-8";
+
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F7F9FC; /* Toss 스타일의 밝은 배경색 */
+    color: #333; /* 텍스트 기본 색상 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+}
+
+.container {
+    margin: 20px auto;
+    background-color: #FFFFFF; /* 카드형 배경 */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    padding: 40px;
+    width: 80%;
+    max-width: 900px;
+}
+
+.container h1 {
+    font-size: 24px;
+    color: #007AFF; /* Toss 스타일의 주요 색상 */
+    margin-bottom: 20px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.table-container {
+    overflow-x: auto; /* 반응형 테이블 */
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+table th, table td {
+    text-align: center;
+    padding: 12px;
+    border: 1px solid #ddd;
+    font-size: 14px;
+}
+
+table th {
+    background-color: #F1F3F5; /* 테이블 헤더 배경 */
+    color: #555;
+    font-weight: bold;
+}
+
+table tr:nth-child(even) {
+    background-color: #F9FAFB; /* 짝수 행 배경 */
+}
+
+table tr:hover {
+    background-color: #F1F5FF; /* 행 Hover 효과 */
+}
+
+button {
+    background-color: #007AFF;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+button:hover {
+    background-color: #005BBB;
+}
+
+input[type="text"], input[type="number"] {
+    padding: 8px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    width: calc(100% - 20px);
+    font-size: 14px;
+}
+
+input[type="text"]:focus, input[type="number"]:focus {
+    outline: none;
+    border-color: #007AFF;
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+}
+
+label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+    text-align: left;
+}
+
+form {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.form-check-input {
+    display: inline-block;
+    margin-right: 5px;
+}
+
+.form-check-label {
+    font-size: 14px;
+    color: #555;
+    display: inline-block;
+    vertical-align: middle;
+}

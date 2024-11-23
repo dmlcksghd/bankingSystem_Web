@@ -1,0 +1,91 @@
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F7F9FC; /* 밝은 배경색 */
+    color: #333; /* 텍스트 기본 색상 */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container {
+    background-color: #FFFFFF; /* 카드형 배경 */
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    padding: 40px 30px;
+    width: 400px;
+    text-align: center;
+}
+
+.container h1 {
+    font-size: 24px;
+    color: #007AFF; /* Toss 스타일의 주요 색상 */
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+label {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 5px;
+    display: block;
+}
+
+input[type="text"],
+input[type="password"] {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #F9FAFB;
+    transition: all 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="password"]:focus {
+    border-color: #007AFF;
+    outline: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+}
+
+button {
+    width: 100%;
+    padding: 12px 0;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+button:hover {
+    background-color: #005BBB; /* 버튼 hover 색상 */
+}
+
+.error-message {
+    color: #FF4D4D;
+    font-size: 14px;
+    margin-bottom: 20px;
+}
+
+a {
+    color: #007AFF;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+a:hover {
+    text-decoration: underline;
+}
