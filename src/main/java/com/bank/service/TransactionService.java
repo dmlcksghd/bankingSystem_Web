@@ -15,6 +15,11 @@ public class TransactionService {
         }
         return transactionDAO.getTransactionsByAccountNo(accountNo);
     }
+    
+    // 특정 계좌의 최근 거래 내역 조회
+    public List<TransactionDTO> getRecentTransactions(String accountNo, int limit) {
+        return transactionDAO.getRecentTransactions(accountNo, limit);
+    }
 
     // 거래 데이터 유효성 검증
     private boolean isValidTransaction(TransactionDTO transaction) {

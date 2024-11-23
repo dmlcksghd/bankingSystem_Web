@@ -66,15 +66,13 @@
         
         // 알림창
         document.addEventListener("DOMContentLoaded", function () {
-        // 서버에서 전달받은 메시지 가져오기
-        const message = "<c:out value='${sessionScope.transferMessage}' />";
-        
-        if (message) {
+        	// 서버에서 전달받은 메시지 가져오기
+        	const message = "<c:out value='${sessionScope.transferMessage}' />";
             const alertBox = document.querySelector("#alert-box");
             const alertMessage = document.querySelector("#alert-message");
             const alertClose = document.querySelector("#alert-close");
-
-            // 알림 메시지 표시
+        
+            if (message && message.trim() !== "") {
             alertMessage.innerText = message;
             alertBox.style.display = "block";
 
@@ -90,6 +88,11 @@
         }
     });
     </script>
+    <!-- 세션 메시지 초기화 -->
+	<%
+	    // 세션 메시지를 제거하여 반복 표시 방지
+	    session.removeAttribute("transferMessage");
+	%>
     
     <style>
 /* 공통 스타일 */

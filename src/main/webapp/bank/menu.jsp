@@ -37,8 +37,8 @@
 <body>
 <!-- 네비게이션 바 -->
 <div class="navbar">
-	<a href="${path}/bank/main.jsp">홈</a>
-    <a href="${path}/bank/accounts">계좌 관리</a>
+	<a href="${path}/bank/accounts?view=main">홈</a>
+    <a href="${path}/bank/accounts?view=accounts">계좌 관리</a>
     <a href="${path}/bank/transactions.jsp">거래 내역</a>
     <%-- <a href="${path}/bank/cards.jsp">카드 관리</a> --%>
     <a href="${path}/bank/accountManagement.jsp">계정 정보 변경</a>

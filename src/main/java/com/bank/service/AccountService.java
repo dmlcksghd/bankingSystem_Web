@@ -2,7 +2,9 @@ package com.bank.service;
 
 import java.sql.Connection;
 import java.sql.SQLException;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.bank.dao.AccountDAO;
 import com.bank.dao.TransactionDAO;
@@ -24,12 +26,23 @@ public class AccountService {
 
     // 특정 고객의 모든 계좌 조회
     public List<AccountDTO> getAccountsByCustomerId(int customerId) {
-
         List<AccountDTO> accounts = accountDAO.getAccountsByCustomerId(customerId);
  
         return accounts;
     }
 
+    public Map<String, Object> getAccountSummary(int customerId) {
+    	List<AccountDTO> accounts = accountDAO.getAccountsByCustomerId(customerId);
+    	
+    	int totalAccounts = accounts.size();
+    	double totalBalance = accounts.stream().mapToDouble(AccountDTO::getBalance).sum();
+    	
+    	Map<String, Object> summary = new HashMap<>();
+    	summary.put("totalAccounts", totalAccounts);
+    	summary.put("totalBalance", totalBalance);
+    	
+    	return summary;
+    }
 
 
     // 계좌 잔액 업데이트
