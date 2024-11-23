@@ -68,7 +68,7 @@
     <style>
 /* 공통 스타일 */
 body {
-    font-family: 'Arial', sans-serif;   
+    font-family: 'Arial', sans-serif;
     color: #333;
     margin: 0;
     padding: 0;
@@ -225,6 +225,25 @@ input:checked + .slider:before {
     background-color: #005BBB;
 }
 
+/* 카드 보기 버튼 스타일 */
+.link-card-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.link-card-btn:hover {
+    background-color: #005BBB;
+}
+
 /* 카드 컨테이너 */
 .card-container {
     padding: 10px;
@@ -299,9 +318,15 @@ input:checked + .slider:before {
                                 <input type="hidden" name="action" value="transfer">
                                 <input type="hidden" name="fromAccountNo" value="${account.accountNo}">
                                 <input type="hidden" name="type" value="TRANSFER">
-                                <input type="text" name="toAccountNo" placeholder="받는 계좌 번호">
-                                <input type="number" name="amount" placeholder="금액">
-                                <button type="submit">송금</button>
+                                
+                                <input type="text" name="toAccountNo" placeholder="받는 계좌 번호"
+                                <c:if test="${account.status != 'ACTIVE'}">disabled</c:if>>
+                                
+                                <input type="number" name="amount" placeholder="금액"
+                                <c:if test="${account.status != 'ACTIVE'}">disabled</c:if>>
+                                
+                                <button type="submit"
+                                <c:if test="${account.status != 'ACTIVE'}">disabled</c:if>>송금</button>
                             </form>
                         </td>
                         <td>
