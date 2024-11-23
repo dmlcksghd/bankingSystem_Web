@@ -1,13 +1,18 @@
 package com.bank.controller;
 
-import com.bank.dto.AccountDTO;
-import com.bank.service.AccountService;
+import java.io.IOException;
+import java.sql.SQLException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.*;
-import java.io.IOException;
-import java.util.List;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.bank.dto.AccountDTO;
+import com.bank.service.AccountService;
 
 @WebServlet("/bank/accounts")
 public class AccountServlet extends HttpServlet {
@@ -85,20 +90,42 @@ public class AccountServlet extends HttpServlet {
     	double amount;
     	
     	try {
-    		amount = Double.parseDouble(request.getParameter("amount"));
+    		 // 금액 파싱
+            amount = Double.parseDouble(request.getParameter("amount"));
+
+            // 송금 처리
+            boolean success = accountService.transferAmount(fromAccountNo, toAccountNo, amount);
+
+            // 결과 처리
+            if (success) {
+            	request.getSession().setAttribute("transferMessage", "송금이 성공적으로 완료되었습니다.");
+            	response.sendRedirect(request.getContextPath() + "/bank/accounts");
+                System.out.println("금액: " + amount + "원 / 송금계좌: " + fromAccountNo + " 입급계좌: " + toAccountNo);
+            } else {
+            	request.getSession().setAttribute("transferMessage", "송금에 실패했습니다.");
+                response.sendRedirect(request.getContextPath() + "/bank/accounts");
+            }
+            
+            System.out.println("금액: " + amount + "원 / 송금계좌: " + fromAccountNo + " 입급계좌: " + toAccountNo);
+            
     	} catch (NumberFormatException e) {
-    		response.getWriter().write("잘못된 금액");
+    		request.getSession().setAttribute("transferMessage", "잘못된 금액입니다.");
+    		response.sendRedirect(request.getContextPath() + "/bank/accounts");
+    		e.printStackTrace();
     		return;
-    	}
+    	} catch (SQLException e) {
+    		request.getSession().setAttribute("transferMessage", "송금 중 오류가 발생했습니다: " + e.getMessage());
+	        response.sendRedirect(request.getContextPath() + "/bank/accounts");
+	        e.printStackTrace();
+		} catch (IllegalArgumentException e) {
+			request.getSession().setAttribute("transferMessage", "잘못된 금액입니다. " + e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/bank/accounts");
+		} catch (Exception e) {
+			request.getSession().setAttribute("transferMessage", "송금 중 오류가 발생했습니다." + e.getMessage());
+			response.sendRedirect(request.getContextPath() + "/bank/accounts");
+	        e.printStackTrace();
+		}
     	
-    	System.out.println("금액: " + amount + "원 / 송금계좌: " + fromAccountNo + " 입급계좌: " + toAccountNo);
-    	
-    	boolean success = accountService.transferAmount(fromAccountNo, toAccountNo, amount);
-        if (success) {
-            response.sendRedirect(request.getContextPath() + "/bank/accounts");
-        } else {
-            response.getWriter().write("송금에 실패했습니다.");
-        }
     }
 
 }

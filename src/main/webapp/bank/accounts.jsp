@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<%@ include file="menu.jsp" %>
+	<%@ include file="menu.jsp" %>
 	<%@ include file="header.jsp" %>
     <title>계좌 목록</title>
     
@@ -63,6 +63,32 @@
             });
 
         });
+        
+        // 알림창
+        document.addEventListener("DOMContentLoaded", function () {
+        // 서버에서 전달받은 메시지 가져오기
+        const message = "<c:out value='${sessionScope.transferMessage}' />";
+        
+        if (message) {
+            const alertBox = document.querySelector("#alert-box");
+            const alertMessage = document.querySelector("#alert-message");
+            const alertClose = document.querySelector("#alert-close");
+
+            // 알림 메시지 표시
+            alertMessage.innerText = message;
+            alertBox.style.display = "block";
+
+            // 닫기 버튼 클릭 시 알림 창 닫기
+            alertClose.addEventListener("click", function () {
+                alertBox.style.display = "none";
+            });
+
+            // 2초 후에 자동으로 닫기
+            setTimeout(function () {
+                alertBox.style.display = "none";
+            }, 2000);
+        }
+    });
     </script>
     
     <style>
@@ -261,6 +287,36 @@ input:checked + .slider:before {
     max-width: 80%;
 }
 
+/* 알림 창 스타일 */
+.alert-box {
+    position: fixed;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #FFFFFF;
+    color: #007AFF;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    z-index: 1000;
+    text-align: center;
+    font-size: 16px;
+}
+
+.alert-box button {
+    margin-top: 10px;
+    padding: 5px 10px;
+    background-color: white;
+    color: #007AFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.alert-box button:hover {
+    background-color: #f1f1f1;
+}
     </style>
 </head>
 <body>  
@@ -345,5 +401,11 @@ input:checked + .slider:before {
             </tbody>
         </table>
     </div>
+    
+    <!-- 알림 창 -->
+    <div id="alert-box" class="alert-box" style="display: none;">
+    <span id="alert-message"></span>
+    <button id="alert-close">닫기</button>
+	</div>
 </body>
 </html>

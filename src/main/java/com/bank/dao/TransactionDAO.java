@@ -33,11 +33,10 @@ public class TransactionDAO {
         return transactions;
     }
     
-    public boolean insertTransaction(TransactionDTO transaction) {
+    public boolean insertTransaction(TransactionDTO transaction, Connection connection) {
         String sql = "INSERT INTO TRANSACTIONS (ACCOUNT_NO, AMOUNT, TYPE, TRANSACTION_DATE) VALUES (?, ?, ?, SYSDATE)";
-        try (Connection conn = DBUtil.getConnection();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
 
+        	try (PreparedStatement pstmt = connection.prepareStatement(sql)) {
             // 금액을 양수로 변환하여 삽입
             pstmt.setString(1, transaction.getAccountNo());
             pstmt.setDouble(2, Math.abs(transaction.getAmount())); // 항상 양수로 처리

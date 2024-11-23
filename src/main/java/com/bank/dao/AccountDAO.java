@@ -48,13 +48,33 @@ public class AccountDAO {
                 .updatedAt(rs.getString("UPDATED_AT"))
                 .build();
     }
-
-    // 잔액 업데이트 (초기화, 절대값 변경)
-    public boolean updateBalance(String accountNo, double newBalance) {
-        String sql = "UPDATE ACCOUNTS SET BALANCE = BALANCE + ?, UPDATED_AT = SYSDATE WHERE ACCOUNT_NO = ?";
+    
+    // 잔액 조회
+    public double getBalance(String accountNo) throws SQLException {
+        String sql = "SELECT BALANCE FROM ACCOUNTS WHERE ACCOUNT_NO = ?";
 
         try (Connection conn = DBUtil.getConnection();
-             PreparedStatement st = conn.prepareStatement(sql)) {
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, accountNo);
+
+            try (ResultSet rs = pstmt.executeQuery()) {
+                if (rs.next()) {
+                    return rs.getDouble("BALANCE");
+                } else {
+                    throw new SQLException("해당 계좌를 찾을 수 없습니다: " + accountNo);
+                }
+            }
+        }
+    }
+    
+    
+    
+    // 잔액 업데이트 (초기화, 절대값 변경)
+    public boolean updateBalance(String accountNo, double newBalance, Connection connection) {
+        String sql = "UPDATE ACCOUNTS SET BALANCE = BALANCE + ?, UPDATED_AT = SYSDATE WHERE ACCOUNT_NO = ?";
+        
+        try (PreparedStatement st = connection.prepareStatement(sql)) {
 
             st.setDouble(1, newBalance);
             st.setString(2, accountNo);
