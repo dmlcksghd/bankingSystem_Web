@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="header.jsp"%>
     <title>회원가입</title>
     
     <!-- 외부 스타일시트 연결 -->

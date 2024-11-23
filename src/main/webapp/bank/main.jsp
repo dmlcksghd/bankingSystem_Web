@@ -5,10 +5,10 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="header.jsp"%>
     <title>메인 페이지</title>
     
     <link rel="stylesheet" type="text/css" href="${path}/css/main.css">
-	<link rel="icon" type="image/x-icon" href="${path}/favicon/favicon.ico">
 
 	<style>
 		/* 기본 스타일 */

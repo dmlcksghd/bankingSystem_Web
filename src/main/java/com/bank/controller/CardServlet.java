@@ -17,6 +17,7 @@ public class CardServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final CardService cardService = new CardService();
 
+    @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         String action = request.getParameter("action");
 
@@ -25,9 +26,7 @@ public class CardServlet extends HttpServlet {
             List<CardDTO> cards = cardService.getAllCardsByAccountNo(accountNo);
             request.setAttribute("cards", cards);
             request.getRequestDispatcher("/bank/cards.jsp").forward(request, response);
-        } else {
-            response.sendError(HttpServletResponse.SC_BAD_REQUEST, "Invalid action");
         }
-    }
 
+    }
 }

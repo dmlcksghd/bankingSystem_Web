@@ -4,12 +4,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>인터넷 뱅킹</title>
+
+<link rel="icon" type="image/x-icon" href="${pageContext.request.contextPath}/favicon/favicon.ico">
+
 </head>
 <body>
-	<nav>
+	<%-- <nav>
 		<a href="main.jsp">홈</a>
 		<a href="${pageContext.request.contextPath}/auth?action=logout">로그아웃</a>
-	</nav>
+	</nav> --%>
 </body>
 </html>

@@ -1,117 +1,145 @@
-@charset "UTF-8";
-
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #F7F9FC; /* Toss 스타일의 밝은 배경색 */
-    color: #333; /* 텍스트 기본 색상 */
-    margin: 0;
-    padding: 0;
-    display: flex;
-    justify-content: center;
-    align-items: flex-start;
-    min-height: 100vh;
+	font-family: 'Arial', sans-serif;
+	background-color: #F7F9FC;
+	color: #333; /* 텍스트 기본 색상 */
+	margin: 0;
+	padding: 20px;
+	display: flex;
+	justify-content: center;
+	align-items: flex-start;
+	min-height: 100vh;
 }
 
 .container {
-    margin: 20px auto;
+    width: 80%;
     background-color: #FFFFFF; /* 카드형 배경 */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-    padding: 40px;
-    width: 80%;
-    max-width: 900px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 20px;
 }
 
-.container h1 {
+h1 {
     font-size: 24px;
-    color: #007AFF; /* Toss 스타일의 주요 색상 */
+    color: #007AFF; /* 스타일 주요 색상 */
     margin-bottom: 20px;
-    font-weight: bold;
     text-align: center;
 }
 
-.table-container {
-    overflow-x: auto; /* 반응형 테이블 */
-}
-
-table {
+.account-table {
     width: 100%;
     border-collapse: collapse;
     margin-bottom: 20px;
 }
-
-table th, table td {
-    text-align: center;
-    padding: 12px;
-    border: 1px solid #ddd;
-    font-size: 14px;
-}
-
-table th {
-    background-color: #F1F3F5; /* 테이블 헤더 배경 */
-    color: #555;
-    font-weight: bold;
-}
-
-table tr:nth-child(even) {
-    background-color: #F9FAFB; /* 짝수 행 배경 */
-}
-
-table tr:hover {
-    background-color: #F1F5FF; /* 행 Hover 효과 */
-}
-
-button {
+		
+.account-table thead {
     background-color: #007AFF;
-    color: white;
-    padding: 10px 15px;
+    color: #FFFFFF;
+}
+
+.account-table th,
+.account-table td {
+    padding: 15px;
+    text-align: center;
+    border: 1px solid #ddd;
+}
+
+.account-table tr:nth-child(even) {
+    background-color: #F9FAFB;
+}
+		
+.account-table tr:hover {
+    background-color: #f1f1f1;
+}
+
+/* 상태 스위치 */
+.status-switch {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.status-text {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* 스위치 스타일 */
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+		
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #007AFF;
+}
+
+input:checked + .slider:before {
+    transform: translateX(25px);
+}
+
+.switch.disabled .slider {
+    background-color: #ddd; /* 비활성화된 상태 색상 */
+    cursor: not-allowed;
+}
+
+.switch.disabled .slider:before {
+    background-color: #bbb; /* 비활성화된 상태에서 내부 색상 */
+}
+
+/* 송금 버튼 */
+button {
+    padding: 10px 20px;
+    background-color: #007AFF;
+    color: #FFFFFF;
     border: none;
     border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
     font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s ease;
 }
 
 button:hover {
-    background-color: #005BBB;
+    background-color: #005BBB; /* Hover 색상 */
 }
 
-input[type="text"], input[type="number"] {
-    padding: 8px;
+/* 카드 컨테이너 */
+.card-container {
+    padding: 10px;
+    background-color: #F9FAFB;
     border: 1px solid #ddd;
     border-radius: 5px;
-    width: calc(100% - 20px);
-    font-size: 14px;
-}
-
-input[type="text"]:focus, input[type="number"]:focus {
-    outline: none;
-    border-color: #007AFF;
-    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
-}
-
-label {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 5px;
-    display: block;
-    text-align: left;
-}
-
-form {
-    display: flex;
-    gap: 10px;
-    align-items: center;
-}
-
-.form-check-input {
-    display: inline-block;
-    margin-right: 5px;
-}
-
-.form-check-label {
-    font-size: 14px;
-    color: #555;
-    display: inline-block;
-    vertical-align: middle;
+    margin-top: 10px;
 }

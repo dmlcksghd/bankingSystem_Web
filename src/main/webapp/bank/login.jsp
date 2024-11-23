@@ -4,11 +4,11 @@
 <!DOCTYPE html>
 <html>
 <head>
+	<%@ include file="header.jsp"%>
     <title>로그인</title>
     
     <!-- 외부 스타일시트 연결 -->
     <link rel="stylesheet" type="text/css" href="../css/login.css">
-    <link rel="icon" type="image/x-icon" href="${path}/favicon/favicon.ico">
     
     <style>
 	    body {
