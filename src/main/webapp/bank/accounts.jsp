@@ -12,11 +12,9 @@
 
 <script>
 $(document).ready(function() {
-    // 카드 추가 버튼 클릭 이벤트
-    $(".add-card-btn").click(function() {
+    $(".link-card-btn").click(function() {
         var accountNo = $(this).data("account-no");
         
-        // 카드 추가 폼 로드
         $.ajax({
             url: "${pageContext.request.contextPath}/bank/cards?action=loadAddCardForm",
             type: "GET",
@@ -26,27 +24,8 @@ $(document).ready(function() {
                 $("#card-form-container").html(response);
             },
             error: function() {
-                alert("카드 추가 폼을 로드하는 데 실패했습니다.");
+                alert("카드 연결 폼을 로드하는 데 실패했습니다.");
             }
-        });
-    });
-    
-    // 카드 추가 폼 제출 이벤트
-    $(document).ready(function() {
-        $(".add-card-btn").click(function() {
-            var accountNo = $(this).data("account-no");
-
-            $.ajax({
-                url: "${pageContext.request.contextPath}/bank/cards",
-                type: "GET",
-                data: { action: "loadAddCardForm", accountNo: accountNo },
-                success: function(response) {
-                    $("#card-form-container").html(response);
-                },
-                error: function() {
-                    alert("카드 추가 폼을 로드하는 데 실패했습니다.");
-                }
-            });
         });
     });
 });

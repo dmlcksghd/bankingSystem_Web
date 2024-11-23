@@ -120,7 +120,7 @@ public class UserAccountServlet extends HttpServlet {
 			if (session != null) {
 				session.invalidate(); // 세션 무효화
 			}
-			response.sendRedirect(request.getContextPath() + "/bank/login.jsp"); // 로그인 페이지로 이동
+			response.sendRedirect(request.getContextPath() + "bank/login.jsp"); // 로그인 페이지로 이동
 		}
 	}
 }
