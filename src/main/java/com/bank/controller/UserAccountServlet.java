@@ -12,7 +12,7 @@ import javax.servlet.http.HttpSession;
 import com.bank.dto.UserAccountDTO;
 import com.bank.service.UserAccountService;
 
-@WebServlet("/auth")
+@WebServlet("/bank/auth.do")
 public class UserAccountServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private final UserAccountService userAccountService = new UserAccountService();
@@ -59,12 +59,12 @@ public class UserAccountServlet extends HttpServlet {
 
 			if (isSuccess) {
 				request.setAttribute("message", "회원가입에 성공했습니다!");
-				request.setAttribute("redirect", "/bank/main.jsp");
+				request.setAttribute("redirect", request.getContextPath() + "/bank/main.jsp");
 			} else {
 				request.setAttribute("message", "회원가입에 실패했습니다.");
-				request.setAttribute("redirect", "/bank/register.jsp");
+				request.setAttribute("redirect", request.getContextPath() + "/bank/register.jsp");
 			}
-			request.getRequestDispatcher("/result.jsp").forward(request, response);
+			request.getRequestDispatcher("/bank/result.jsp").forward(request, response);
 		} else if("updateUserId".equals(action)) {
 			// 아이디 변경 처리 로직
 			HttpSession session = request.getSession();
@@ -110,6 +110,9 @@ public class UserAccountServlet extends HttpServlet {
 	@Override
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		// 로그인 페이지로 이동
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+		
 		String action = request.getParameter("action");
 
 		if ("logout".equals(action)) {
