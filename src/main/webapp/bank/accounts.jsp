@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<%@ include file="menu.jsp" %>
 	<%@ include file="header.jsp" %>
     <title>계좌 목록</title>
     
@@ -67,8 +68,7 @@
     <style>
 /* 공통 스타일 */
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #F7F9FC;
+    font-family: 'Arial', sans-serif;   
     color: #333;
     margin: 0;
     padding: 0;
@@ -84,39 +84,7 @@ body {
 }
 
 /* 메뉴 스타일 */
-.menu-container {
-    background-color: #007AFF;
-    padding: 10px 20px;
-    display: flex;
-    justify-content: center; /* 중앙 정렬 */
-    align-items: center;
-    gap: 20px; /* 메뉴 간격 조정 */
-}
 
-.menu-container a {
-    color: white;
-    text-decoration: none;
-    font-size: 16px;
-}
-
-.menu-container a:hover {
-    text-decoration: none;
-}
-
-.menu-container .logout-button {
-    background-color: #FF4D4D;
-    border: none;
-    padding: 8px 15px;
-    border-radius: 5px;
-    color: white;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.menu-container .logout-button:hover {
-    background-color: #CC0000;
-}
 
 /* 테이블 스타일 */
 .account-table,
@@ -273,13 +241,10 @@ input:checked + .slider:before {
     width: auto;
     max-width: 80%;
 }
+
     </style>
 </head>
-<body>
-	<div class="menu-container">
-        <%@ include file="menu.jsp" %> <!-- 메뉴를 독립된 컨테이너에 포함 -->
-    </div>
-    
+<body>  
     <div class="container">
         <h1>계좌 목록</h1>
         <table class="account-table">

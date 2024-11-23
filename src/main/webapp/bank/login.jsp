@@ -8,25 +8,25 @@
     <title>로그인</title>
     
     <!-- 외부 스타일시트 연결 -->
-    <link rel="stylesheet" type="text/css" href="../css/login.css">
+    <link rel="stylesheet" type="text/css" href="${pageContext.request.contextPath}/css/login.css?version=1.1">
     
     <style>
-	    body {
-	    font-family: 'Arial', sans-serif;
-	    background-color: #F7F9FC; /* Toss 스타일의 밝은 배경색 */
-	    color: #333; /* 텍스트 기본 색상 */
-	    margin: 0;
-	    padding: 0;
-	    display: flex;
-	    justify-content: center;
-	    align-items: center;
-	    height: 100vh;
+    	body {
+		    font-family: 'Arial', sans-serif;
+		    background-color: #F7F9FC;
+		    color: #333; /* 텍스트 기본 색상 */
+		    margin: 0;
+		    padding: 0;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    height: 100vh;
 		}
-
+		
 		.container {
 		    background-color: #FFFFFF; /* 카드형 배경 */
 		    border-radius: 10px;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
 		    padding: 40px 30px;
 		    width: 350px;
 		    text-align: center;
