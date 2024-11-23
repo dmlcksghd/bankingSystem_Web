@@ -26,7 +26,7 @@
 		.container {
 		    background-color: #FFFFFF; /* 카드형 배경 */
 		    border-radius: 10px;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 		    padding: 40px 30px;
 		    width: 350px;
 		    text-align: center;

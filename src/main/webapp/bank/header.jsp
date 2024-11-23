@@ -9,9 +9,6 @@
 
 </head>
 <body>
-	<%-- <nav>
-		<a href="main.jsp">홈</a>
-		<a href="${pageContext.request.contextPath}/auth?action=logout">로그아웃</a>
-	</nav> --%>
+
 </body>
 </html>

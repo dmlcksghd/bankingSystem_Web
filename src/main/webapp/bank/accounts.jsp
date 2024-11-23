@@ -4,7 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-	<%@ include file="header.jsp"%>
+	<%@ include file="header.jsp" %>
     <title>계좌 목록</title>
     
     <!-- 외부 스타일시트 연결 -->
@@ -65,191 +65,221 @@
     </script>
     
     <style>
-		body {
-		    font-family: 'Arial', sans-serif;
-		    background-color: #F7F9FC;
-		    color: #333; /* 텍스트 기본 색상 */
-		    margin: 0;
-		    padding: 20px;
-		    display: flex;
-		    justify-content: center;
-		    align-items: flex-start;
-		    min-height: 100vh;
-		}
-		
-		.container {
-		    width: 80%;
-		    background-color: #FFFFFF; /* 카드형 배경 */
-		    border-radius: 10px;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		    padding: 20px;
-		}
-		
-		h1 {
-		    font-size: 24px;
-		    color: #007AFF; /* 스타일 주요 색상 */
-		    margin-bottom: 20px;
-		    text-align: center;
-		}
-		
-		.account-table {
-		    width: 100%;
-		    border-collapse: collapse;
-		    margin-bottom: 20px;
-		}
-		
-		.account-table thead {
-		    background-color: #007AFF;
-		    color: #FFFFFF;
-		}
-		
-		.account-table th,
-		.account-table td {
-		    padding: 15px;
-		    text-align: center;
-		    border: 1px solid #ddd;
-		}
-		
-		.account-table tr:nth-child(even) {
-		    background-color: #F9FAFB;
-		}
-		
-		.account-table tr:hover {
-		    background-color: #f1f1f1;
-		}
-		
-		thead tr:hover th {
-		    background-color: #007AFF; /* 기존 헤더 배경색 유지 */
-		    cursor: default; /* 마우스 커서 변경 방지 */
-		}
-		
-		
-		/* 상태 스위치 */
-		.status-switch {
-		    display: flex;
-		    align-items: center;
-		    flex-direction: column;
-		}
-		
-		.status-text {
-		    font-size: 14px;
-		    margin-bottom: 5px;
-		    color: #555;
-		}
-		
-		/* 스위치 스타일 */
-		.switch {
-		    position: relative;
-		    display: inline-block;
-		    width: 50px;
-		    height: 25px;
-		}
-		
-		.switch input {
-		    opacity: 0;
-		    width: 0;
-		    height: 0;
-		}
-		
-		.slider {
-		    position: absolute;
-		    cursor: pointer;
-		    top: 0;
-		    left: 0;
-		    right: 0;
-		    bottom: 0;
-		    background-color: #ccc;
-		    transition: 0.4s;
-		    border-radius: 34px;
-		}
-		
-		.slider:before {
-		    position: absolute;
-		    content: "";
-		    height: 17px;
-		    width: 17px;
-		    left: 4px;
-		    bottom: 4px;
-		    background-color: white;
-		    transition: 0.4s;
-		    border-radius: 50%;
-		}
-		
-		input:checked + .slider {
-		    background-color: #007AFF;
-		}
-		
-		input:checked + .slider:before {
-		    transform: translateX(25px);
-		}
-		
-		.switch.disabled .slider {
-		    background-color: #ddd; /* 비활성화된 상태 색상 */
-		    cursor: not-allowed;
-		}
-		
-		.switch.disabled .slider:before {
-		    background-color: #bbb; /* 비활성화된 상태에서 내부 색상 */
-		}
-		
-		/* 송금 버튼 */
-		input[type="text"],
-		input[type="number"] {
-		    width: 90%; /* 크기를 적절히 축소 */
-		    padding: 8px; /* 여백 축소 */
-		    border: 1px solid #ddd;
-		    border-radius: 5px;
-		    font-size: 13px; /* 폰트 크기 축소 */
-		    background-color: #F9FAFB;
-		    transition: all 0.3s ease;
-		    margin-bottom: 10px; /* 입력 필드 간 간격 추가 */
-		}
-		
-		input[type="text"]:focus,
-		input[type="number"]:focus {
-		    border-color: #007AFF;
-		    outline: none;
-		    background-color: #FFFFFF;
-		    box-shadow: 0 0 3px rgba(0, 122, 255, 0.3); /* 포커스 효과 최소화 */
-		}
-		
-		button {
-		    width: auto; /* 버튼 크기를 내용에 맞게 자동 조정 */
-		    padding: 8px 20px; /* 여백 축소 */
-		    background-color: #007AFF;
-		    color: #FFFFFF;
-		    border: none;
-		    border-radius: 5px;
-		    font-size: 14px; /* 폰트 크기 축소 */
-		    font-weight: bold;
-		    cursor: pointer;
-		    transition: all 0.3s ease;
-		}
-		
-		button:hover {
-		    background-color: #005BBB;
-		}
-		
-		/* 카드 컨테이너 */
-		.card-container {
-			display: flex;
-		    flex-direction: column; /* 세로 정렬 */
-		    align-items: center;
-		    justify-content: center;
-		    margin: 20px 0;
-		    padding: 10px;
-		    background-color: #f9f9f9;
-		    border: 1px solid #ddd;
-		    border-radius: 10px;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-		    width: 80%;             /* 컨테이너 너비 설정 */
-		    margin-left: auto;      /* 중앙 정렬을 위해 추가 */
-		    margin-right: auto;     /* 중앙 정렬을 위해 추가 */
-		}
+/* 공통 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F7F9FC;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    max-width: 1000px;
+}
+
+/* 메뉴 스타일 */
+.menu-container {
+    background-color: #007AFF;
+    padding: 10px 20px;
+    display: flex;
+    justify-content: center; /* 중앙 정렬 */
+    align-items: center;
+    gap: 20px; /* 메뉴 간격 조정 */
+}
+
+.menu-container a {
+    color: white;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.menu-container a:hover {
+    text-decoration: none;
+}
+
+.menu-container .logout-button {
+    background-color: #FF4D4D;
+    border: none;
+    padding: 8px 15px;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.menu-container .logout-button:hover {
+    background-color: #CC0000;
+}
+
+/* 테이블 스타일 */
+.account-table,
+.card-container table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+}
+
+.account-table th,
+.account-table td,
+.card-container th,
+.card-container td {
+    padding: 10px;
+    border: 1px solid #ddd;
+    text-align: center;
+}
+
+.account-table thead,
+.card-container thead {
+    background-color: #007AFF;
+    color: white;
+}
+
+.account-table tbody tr:nth-child(even),
+.card-container tr:nth-child(even) {
+    background-color: #F9FAFB;
+}
+
+.account-table tbody tr:hover,
+.card-container tr:hover {
+    background-color: #f1f1f1;
+}
+
+.card-container tr:hover th {
+    background-color: #007AFF; /* hover 시 th 유지 */
+    color: white;
+}
+
+/* 상태 스위치 */
+.status-switch {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+}
+
+.status-text {
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 25px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 17px;
+    width: 17px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: #007AFF;
+}
+
+input:checked + .slider:before {
+    transform: translateX(25px);
+}
+
+/* 송금 폼 */
+.transfer-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.transfer-form input[type="text"],
+.transfer-form input[type="number"] {
+    width: 80%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    background-color: #F9FAFB;
+}
+
+.transfer-form input[type="text"]:focus,
+.transfer-form input[type="number"]:focus {
+    border-color: #007AFF;
+    outline: none;
+    background-color: #FFFFFF;
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+}
+
+.transfer-form button {
+    width: 80%;
+    padding: 12px 0;
+    background-color: #007AFF;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.transfer-form button:hover {
+    background-color: #005BBB;
+}
+
+/* 카드 컨테이너 */
+.card-container {
+    padding: 10px;
+    background-color: #F9FAFB;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    margin-top: 10px;
+    text-align: center; /* 카드 목록 중앙 정렬 */
+}
+
+.card-container table {
+    margin: 0 auto; /* 카드 테이블 중앙 배치 */
+    border-collapse: collapse;
+    width: auto;
+    max-width: 80%;
+}
     </style>
 </head>
 <body>
-    <%@ include file="header.jsp"%>
+	<div class="menu-container">
+        <%@ include file="menu.jsp" %> <!-- 메뉴를 독립된 컨테이너에 포함 -->
+    </div>
+    
     <div class="container">
         <h1>계좌 목록</h1>
         <table class="account-table">
@@ -300,7 +330,7 @@
 						    </div>
 						</td>
                         <td>
-                            <form action="${pageContext.request.contextPath}/bank/accounts" method="POST">
+                            <form class="transfer-form" action="${pageContext.request.contextPath}/bank/accounts" method="POST">
                                 <input type="hidden" name="action" value="transfer">
                                 <input type="hidden" name="fromAccountNo" value="${account.accountNo}">
                                 <input type="hidden" name="type" value="TRANSFER">
