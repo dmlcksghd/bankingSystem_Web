@@ -3,7 +3,9 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
+	<%@ include file="header.jsp" %>
+	<meta charset="UTF-8">
+	
 	<title>회원가입 결과</title>
 	<!-- 외부 스타일시트 연결 -->
     <link rel="stylesheet" type="text/css" href="${path}/css/result.css">

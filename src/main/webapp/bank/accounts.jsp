@@ -5,8 +5,8 @@
 <html>
 <head>
 	<%@ include file="menu.jsp" %>
-    <title>계좌 목록</title>
 	<%@ include file="header.jsp" %>
+    <title>계좌 목록</title>
     
     <!-- 외부 스타일시트 연결 -->
     <link rel="stylesheet" type="text/css" href="${path}/css/accounts.css">
