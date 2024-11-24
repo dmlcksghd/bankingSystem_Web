@@ -128,7 +128,7 @@ public class AccountServlet extends HttpServlet {
         if (status == null || status.isEmpty()) {
             status = "INACTIVE"; // 기본값 설정
         }
-        
+         
         if ("ACTIVE".equalsIgnoreCase(status) || "INACTIVE".equalsIgnoreCase(status)) {
             boolean success = accountService.updateAccountStatus(accountNo, status);
             if (success) {
