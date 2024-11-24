@@ -95,231 +95,233 @@
 	%>
     
     <style>
-/* 공통 스타일 */
-body {
-    font-family: 'Arial', sans-serif;
-    color: #333;
-    margin: 0;
-    padding: 0;
-}
+		/* 공통 스타일 */
+		body {
+		    font-family: 'Arial', sans-serif;
+		    color: #333;
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		.container {
+		    margin: 20px auto;
+		    padding: 20px;
+		    background-color: #FFFFFF;
+		    border-radius: 10px;
+		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		    max-width: 1000px;
+		}
 
-.container {
-    margin: 20px auto;
-    padding: 20px;
-    background-color: #FFFFFF;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    max-width: 1000px;
-}
+		h1{
+            text-align: center;
+            color: #007AFF;
+        }
 
-/* 메뉴 스타일 */
-
-
-/* 테이블 스타일 */
-.account-table,
-.card-container table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-bottom: 20px;
-}
-
-.account-table th,
-.account-table td,
-.card-container th,
-.card-container td {
-    padding: 10px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.account-table thead,
-.card-container thead {
-    background-color: #007AFF;
-    color: white;
-}
-
-.account-table tbody tr:nth-child(even),
-.card-container tr:nth-child(even) {
-    background-color: #F9FAFB;
-}
-
-.account-table tbody tr:hover,
-.card-container tr:hover {
-    background-color: #f1f1f1;
-}
-
-.card-container tr:hover th {
-    background-color: #007AFF; /* hover 시 th 유지 */
-    color: white;
-}
-
-/* 상태 스위치 */
-.status-switch {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-}
-
-.status-text {
-    font-size: 14px;
-    margin-bottom: 5px;
-    color: #555;
-}
-
-.switch {
-    position: relative;
-    display: inline-block;
-    width: 50px;
-    height: 25px;
-}
-
-.switch input {
-    opacity: 0;
-    width: 0;
-    height: 0;
-}
-
-.slider {
-    position: absolute;
-    cursor: pointer;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    background-color: #ccc;
-    transition: 0.4s;
-    border-radius: 34px;
-}
-
-.slider:before {
-    position: absolute;
-    content: "";
-    height: 17px;
-    width: 17px;
-    left: 4px;
-    bottom: 4px;
-    background-color: white;
-    transition: 0.4s;
-    border-radius: 50%;
-}
-
-input:checked + .slider {
-    background-color: #007AFF;
-}
-
-input:checked + .slider:before {
-    transform: translateX(25px);
-}
-
-/* 송금 폼 */
-.transfer-form {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 10px;
-}
-
-.transfer-form input[type="text"],
-.transfer-form input[type="number"] {
-    width: 80%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    background-color: #F9FAFB;
-}
-
-.transfer-form input[type="text"]:focus,
-.transfer-form input[type="number"]:focus {
-    border-color: #007AFF;
-    outline: none;
-    background-color: #FFFFFF;
-    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
-}
-
-.transfer-form button {
-    width: 80%;
-    padding: 12px 0;
-    background-color: #007AFF;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-}
-
-.transfer-form button:hover {
-    background-color: #005BBB;
-}
-
-/* 카드 보기 버튼 스타일 */
-.link-card-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: #007AFF;
-    color: #FFFFFF;
-    border: none;
-    border-radius: 5px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-align: center;
-}
-
-.link-card-btn:hover {
-    background-color: #005BBB;
-}
-
-/* 카드 컨테이너 */
-.card-container {
-    padding: 10px;
-    background-color: #F9FAFB;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    margin-top: 10px;
-    text-align: center; /* 카드 목록 중앙 정렬 */
-}
-
-.card-container table {
-    margin: 0 auto; /* 카드 테이블 중앙 배치 */
-    border-collapse: collapse;
-    width: auto;
-    max-width: 80%;
-}
-
-/* 알림 창 스타일 */
-.alert-box {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    background-color: #FFFFFF;
-    color: #007AFF;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    z-index: 1000;
-    text-align: center;
-    font-size: 16px;
-}
-
-.alert-box button {
-    margin-top: 10px;
-    padding: 5px 10px;
-    background-color: white;
-    color: #007AFF;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 14px;
-}
-
-.alert-box button:hover {
-    background-color: #f1f1f1;
-}
+		/* 테이블 스타일 */
+		.account-table,
+		.card-container table {
+		    width: 100%;
+		    border-collapse: collapse;
+		    margin-bottom: 20px;
+		}
+		
+		.account-table th,
+		.account-table td,
+		.card-container th,
+		.card-container td {
+		    padding: 10px;
+		    border: 1px solid #ddd;
+		    text-align: center;
+		}
+		
+		.account-table thead,
+		.card-container thead {
+		    background-color: #007AFF;
+		    color: white;
+		}
+		
+		.account-table tbody tr:nth-child(even),
+		.card-container tr:nth-child(even) {
+		    background-color: #F9FAFB;
+		}
+		
+		.account-table tbody tr:hover,
+		.card-container tr:hover {
+		    background-color: #f1f1f1;
+		}
+		
+		.card-container tr:hover th {
+		    background-color: #007AFF; /* hover 시 th 유지 */
+		    color: white;
+		}
+		
+		/* 상태 스위치 */
+		.status-switch {
+		    display: flex;
+		    align-items: center;
+		    flex-direction: column;
+		}
+		
+		.status-text {
+		    font-size: 14px;
+		    margin-bottom: 5px;
+		    color: #555;
+		}
+		
+		.switch {
+		    position: relative;
+		    display: inline-block;
+		    width: 50px;
+		    height: 25px;
+		}
+		
+		.switch input {
+		    opacity: 0;
+		    width: 0;
+		    height: 0;
+		}
+		
+		.slider {
+		    position: absolute;
+		    cursor: pointer;
+		    top: 0;
+		    left: 0;
+		    right: 0;
+		    bottom: 0;
+		    background-color: #ccc;
+		    transition: 0.4s;
+		    border-radius: 34px;
+		}
+		
+		.slider:before {
+		    position: absolute;
+		    content: "";
+		    height: 17px;
+		    width: 17px;
+		    left: 4px;
+		    bottom: 4px;
+		    background-color: white;
+		    transition: 0.4s;
+		    border-radius: 50%;
+		}
+		
+		input:checked + .slider {
+		    background-color: #007AFF;
+		}
+		
+		input:checked + .slider:before {
+		    transform: translateX(25px);
+		}
+		
+		/* 송금 폼 */
+		.transfer-form {
+		    display: flex;
+		    flex-direction: column;
+		    align-items: center;
+		    gap: 10px;
+		}
+		
+		.transfer-form input[type="text"],
+		.transfer-form input[type="number"] {
+		    width: 80%;
+		    padding: 10px;
+		    border: 1px solid #ddd;
+		    border-radius: 5px;
+		    font-size: 14px;
+		    background-color: #F9FAFB;
+		}
+		
+		.transfer-form input[type="text"]:focus,
+		.transfer-form input[type="number"]:focus {
+		    border-color: #007AFF;
+		    outline: none;
+		    background-color: #FFFFFF;
+		    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+		}
+		
+		.transfer-form button {
+		    width: 80%;
+		    padding: 12px 0;
+		    background-color: #007AFF;
+		    color: #FFFFFF;
+		    border: none;
+		    border-radius: 5px;
+		    font-size: 16px;
+		    font-weight: bold;
+		    cursor: pointer;
+		    transition: all 0.3s ease;
+		}
+		
+		.transfer-form button:hover {
+		    background-color: #005BBB;
+		}
+		
+		/* 카드 보기 버튼 스타일 */
+		.link-card-btn {
+		    display: inline-block;
+		    padding: 10px 20px;
+		    background-color: #007AFF;
+		    color: #FFFFFF;
+		    border: none;
+		    border-radius: 5px;
+		    font-size: 14px;
+		    font-weight: bold;
+		    cursor: pointer;
+		    transition: all 0.3s ease;
+		    text-align: center;
+		}
+		
+		.link-card-btn:hover {
+		    background-color: #005BBB;
+		}
+		
+		/* 카드 컨테이너 */
+		.card-container {
+		    padding: 10px;
+		    background-color: #F9FAFB;
+		    border: 1px solid #ddd;
+		    border-radius: 5px;
+		    margin-top: 10px;
+		    text-align: center; /* 카드 목록 중앙 정렬 */
+		}
+		
+		.card-container table {
+		    margin: 0 auto; /* 카드 테이블 중앙 배치 */
+		    border-collapse: collapse;
+		    width: auto;
+		    max-width: 80%;
+		}
+		
+		/* 알림 창 스타일 */
+		.alert-box {
+		    position: fixed;
+		    top: 20%;
+		    left: 50%;
+		    transform: translate(-50%, -50%);
+		    background-color: #FFFFFF;
+		    color: #007AFF;
+		    padding: 20px;
+		    border-radius: 8px;
+		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+		    z-index: 1000;
+		    text-align: center;
+		    font-size: 16px;
+		}
+		
+		.alert-box button {
+		    margin-top: 10px;
+		    padding: 5px 10px;
+		    background-color: white;
+		    color: #007AFF;
+		    border: none;
+		    border-radius: 5px;
+		    cursor: pointer;
+		    font-size: 14px;
+		}
+		
+		.alert-box button:hover {
+		    background-color: #f1f1f1;
+		}
     </style>
 </head>
 <body>  
@@ -354,7 +356,7 @@ input:checked + .slider:before {
 						            <c:when test="${account.status == 'CLOSED'}">
 						                <label class="switch disabled">
 						                    <input type="checkbox" disabled>
-						                    <span class="slider">CLOSED</span>
+						                    <span class="slider"></span>
 						                </label>
 						            </c:when>
 						            <c:otherwise>
