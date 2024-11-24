@@ -173,8 +173,8 @@
         <!-- 카드형 섹션 -->
         <div class="card">
             <h2>내 계좌 현황</h2>
-            <p>총 계좌 수: ${totalAccounts}</p>
-            <p>총 자산: ${totalBalance} 원</p>
+            <p><strong>총 계좌 수:</strong> ${totalAccounts}개</p>
+            <p><strong>총 자산:</strong> ${totalBalance} 원</p>
             <a href="${path}/bank/accounts?view=accounts" class="button">계좌 상세 보기</a>
         </div>
 
