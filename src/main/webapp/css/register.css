@@ -1,7 +1,7 @@
 body {
-    font-family: 'Arial', sans-serif;
-    background-color: #F7F9FC; /* 밝은 배경색 */
-    color: #333; /* 텍스트 기본 색상 */
+	font-family: 'Arial', sans-serif;
+    background-color: #F7F9FC;
+    color: #333;
     margin: 0;
     padding: 0;
     display: flex;
@@ -13,7 +13,7 @@ body {
 .container {
     background-color: #FFFFFF; /* 카드형 배경 */
     border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     padding: 40px 30px;
     width: 400px;
     text-align: center;
@@ -21,7 +21,7 @@ body {
 
 .container h1 {
     font-size: 24px;
-    color: #007AFF; /* Toss 스타일의 주요 색상 */
+    color: #007AFF;
     margin-bottom: 20px;
     font-weight: bold;
 }

@@ -1,0 +1,23 @@
+/* 네비게이션 스타일 */
+.navbar {
+    display: flex;
+    justify-content: center;
+    background-color: #FFFFFF; /* 배경 흰색 */
+    border-bottom: 1px solid #ddd;
+    padding: 10px 0;
+}
+
+.navbar a {
+    text-decoration: none;
+    margin: 0 15px;
+    font-size: 16px;
+    color: #007AFF; /* 글씨 색 파란색 */
+    transition: color 0.3s ease, text-decoration 0.3s ease;
+    padding: 5px 10px;
+}
+
+.navbar a:hover {
+    text-decoration: none; /* 밑줄 제거 */
+    background-color: #F0F8FF; /* 호버 시 배경색 추가 */
+    border-radius: 5px;
+}

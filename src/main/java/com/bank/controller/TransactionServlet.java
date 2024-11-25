@@ -7,49 +7,68 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import com.bank.dto.AccountDTO;
 import com.bank.dto.TransactionDTO;
+import com.bank.service.AccountService;
 import com.bank.service.TransactionService;
 
 @WebServlet("/bank/transactions")
 public class TransactionServlet extends HttpServlet {
     private static final long serialVersionUID = 1L;
     private final TransactionService transactionService = new TransactionService();
+    private final AccountService accountService = new AccountService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws IOException {
-        String accountNo = request.getParameter("accountNo");
-
-        // 계좌 번호 유효성 검사
-        if (accountNo == null || accountNo.isEmpty()) {
-            response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write("<tr><td colspan='5'>계좌를 먼저 선택하세요.</td></tr>");
+        // 세션 확인 및 인증
+        HttpSession session = request.getSession(false);
+        if (session == null || session.getAttribute("customerId") == null) {
+            response.sendRedirect(request.getContextPath() + "/bank/login.jsp");
             return;
         }
 
-        try {
-            // 거래 내역 조회
-            List<TransactionDTO> transactions = transactionService.getAllTransactionsByAccountNo(accountNo);
+        Integer customerId = (Integer) session.getAttribute("customerId");
+        String accountNo = request.getParameter("accountNo");
 
-            // Ajax 요청에 대한 HTML 응답 생성
-            StringBuilder transactionHtml = new StringBuilder();
-            for (TransactionDTO transaction : transactions) {
-                transactionHtml.append("<tr>")
-                               .append("<td>").append(transaction.getTransactionId()).append("</td>")
-                               .append("<td>").append(transaction.getAccountNo()).append("</td>")
-                               .append("<td>").append(transaction.getAmount()).append("</td>")
-                               .append("<td>").append(transaction.getType()).append("</td>")
-                               .append("<td>").append(transaction.getTransactionDate()).append("</td>")
+        try {
+            // 계좌 선택 화면 제공
+            if (accountNo == null || accountNo.isEmpty()) {
+                List<AccountDTO> accounts = accountService.getAccountsByCustomerId(customerId);
+                request.setAttribute("accounts", accounts);
+                request.getRequestDispatcher("/bank/transactions.jsp").forward(request, response);
+                return;
+            }
+
+            // 거래 내역 조회 및 HTML 응답 생성
+            List<TransactionDTO> transactions = transactionService.getAllTransactionsByAccountNo(accountNo);
+            StringBuilder htmlBuilder = new StringBuilder();
+
+            if (transactions.isEmpty()) {
+                htmlBuilder.append("<tr><td colspan='5'>거래 내역이 없습니다.</td></tr>");
+            } else {
+                for (TransactionDTO transaction : transactions) {
+                    htmlBuilder.append("<tr>")
+                               .append("<td>").append(transaction.getTransactionId() != null ? transaction.getTransactionId() : "").append("</td>")
+                               .append("<td>").append(transaction.getAccountNo() != null ? transaction.getAccountNo() : "").append("</td>")
+                               .append("<td>").append(transaction.getAmount() != null ? transaction.getAmount() : "0").append("</td>")
+                               .append("<td>").append(transaction.getType() != null ? transaction.getType() : "").append("</td>")
+                               .append("<td>").append(transaction.getTransactionDate() != null ? transaction.getTransactionDate() : "").append("</td>")
                                .append("</tr>");
+                }
             }
 
             response.setContentType("text/html;charset=UTF-8");
-            response.getWriter().write(transactionHtml.toString());
+            response.getWriter().write(htmlBuilder.toString());
         } catch (Exception e) {
             e.printStackTrace();
             response.setContentType("text/html;charset=UTF-8");
             response.getWriter().write("<tr><td colspan='5'>거래 내역을 불러오는 중 오류가 발생했습니다.</td></tr>");
         }
     }
+
+
+
 
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String accountNo = request.getParameter("accountNo");

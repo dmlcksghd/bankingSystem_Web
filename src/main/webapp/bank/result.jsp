@@ -1,5 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<c:set var="path" value="${pageContext.servletContext.contextPath}"></c:set>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,78 +9,31 @@
 	<meta charset="UTF-8">
 	
 	<title>회원가입 결과</title>
+	
 	<!-- 외부 스타일시트 연결 -->
     <link rel="stylesheet" type="text/css" href="${path}/css/result.css">
     
-	<style>
-		body {
-		    font-family: 'Arial', sans-serif;
-		    background-color: #F7F9FC; /* Toss 스타일의 밝은 배경색 */
-		    color: #333; /* 텍스트 기본 색상 */
-		    margin: 0;
-		    padding: 0;
-		    display: flex;
-		    justify-content: center;
-		    align-items: center;
-		    height: 100vh;
-		}
-		
-		.container {
-		    background-color: #FFFFFF; /* 카드형 배경 */
-		    border-radius: 10px;
-		    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1); /* 부드러운 그림자 */
-		    padding: 40px 30px;
-		    width: 350px;
-		    text-align: center;
-		}
-		
-		.container h1 {
-		    font-size: 24px;
-		    color: #007AFF; /* Toss 스타일의 주요 색상 */
-		    margin-bottom: 20px;
-		    font-weight: bold;
-		}
-		
-		.container p {
-		    font-size: 16px;
-		    color: #555;
-		    margin-bottom: 20px;
-		}
-		
-		button {
-		    width: 100%;
-		    padding: 12px 0;
-		    background-color: #007AFF;
-		    color: #FFFFFF;
-		    border: none;
-		    border-radius: 5px;
-		    font-size: 16px;
-		    font-weight: bold;
-		    cursor: pointer;
-		    transition: all 0.3s ease;
-		}
-		
-		button:hover {
-		    background-color: #005BBB; /* 버튼 hover 색상 */
-		}
-		
-		a {
-		    color: #007AFF;
-		    text-decoration: none;
-		    font-size: 14px;
-		}
-		
-		a:hover {
-		    text-decoration: underline;
-		}
-	</style>
+	<script>
+		window.onload = function () {
+	        logoutTimer = setTimeout(function () {
+	            window.location.href = "${path}/logout";
+	        }, 3000);
+	    };
+	    
+	    function cancelLogoutAndRedirect() {
+	    	clearTimeout(logoutTimer); // 로그아웃 타이머 중지
+            window.location.href = "${path}/bank/accountManagement"; // 다른 페이지로 이동
+	    }
+    </script>
 </head>
-    <div class="container">
-        <h1>${message}</h1>
-        <p>계속 진행하려면 아래 버튼을 클릭하세요.</p>
-        <a href="${redirect}">
-            <button>돌아가기</button>
-        </a>
     </div>
+<body>
+	<div class="container">
+		<p class="message"><span>로그아웃</span>이 완료되었습니다.</p>
+		<p class="redirect-info">돌아가기를 누르지 않으면 3초 후 로그인 페이지로 이동합니다.</p>
+		<div class="button-container">
+            <button onclick="window.location.href='<%= request.getContextPath() %>/bank/accountManagement'">돌아가기</button>
+        </div>
+	</div>
 </body>
 </html>

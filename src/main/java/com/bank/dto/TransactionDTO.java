@@ -10,9 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class TransactionDTO {
-    private int transactionId;
+    private Integer transactionId;
     private String accountNo;
-    private double amount;
+    private Double amount;
     private String type; // DEPOSIT, WITHDRAWAL, TRANSFER
     private String transactionDate;
 }

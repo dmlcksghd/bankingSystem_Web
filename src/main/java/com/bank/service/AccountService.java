@@ -27,7 +27,7 @@ public class AccountService {
     // 특정 고객의 모든 계좌 조회
     public List<AccountDTO> getAccountsByCustomerId(int customerId) {
         List<AccountDTO> accounts = accountDAO.getAccountsByCustomerId(customerId);
- 
+        System.out.println("Accounts fetched from DB: " + accounts); // 로그 추가
         return accounts;
     }
 

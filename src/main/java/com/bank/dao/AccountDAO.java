@@ -33,6 +33,7 @@ public class AccountDAO {
 	        System.err.println("Error retrieving accounts for customerId: " + customerId);
 	        e.printStackTrace();
 	    }
+	    System.out.println("Accounts from DAO: " + accounts); // 로그 추가
 	    return accounts;
 	}
 

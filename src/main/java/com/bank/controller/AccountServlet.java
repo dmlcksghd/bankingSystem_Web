@@ -74,19 +74,22 @@ public class AccountServlet extends HttpServlet {
             if ("transactions".equals(request.getParameter("view"))) {
                 List<AccountDTO> accounts = accountService.getAccountsByCustomerId(customerId);
                 request.setAttribute("accounts", accounts);
-
+                System.out.println("Accounts set as attribute: " + accounts); // 확인 로그 추가
+                
                 // 기본 계좌 또는 선택된 계좌의 거래 내역 처리
                 String accountNo = request.getParameter("accountNo");
                 if (accountNo == null && !accounts.isEmpty()) {
                     accountNo = accounts.get(0).getAccountNo(); // 기본 계좌 설정
+                    System.out.println("Default accountNo set to: " + accountNo);
                 }
 
                 if (accountNo != null) {
-                    List<TransactionDTO> transactions = transactionService.getAllTransactionsByAccountNo(accountNo);
-                    request.setAttribute("transactions", transactions);
+                    response.sendRedirect(request.getContextPath() + "/bank/transactions?accountNo");
+                    return;
                 }
 
-                request.getRequestDispatcher("/bank/transactions.jsp").forward(request, response);
+                System.out.println("No account available for transactions view.");
+                response.sendRedirect(request.getContextPath() + "/bank/transactions");
                 return;
             } 
             

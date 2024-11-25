@@ -1,0 +1,91 @@
+/* 공통 스타일 */
+body {
+    font-family: 'Arial', sans-serif;
+    background-color: #F7F9FC;
+    color: #333;
+    margin: 0;
+    padding: 0;
+}
+
+/* 컨테이너 스타일 */
+.container {
+    max-width: 500px;
+    margin: 50px auto;
+    background-color: #FFFFFF;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    text-align: center;
+}
+
+/* 제목 스타일 */
+.main-title {
+    font-size: 24px;
+    font-weight: bold;
+    color: #007AFF;
+    margin-bottom: 20px;
+}
+
+/* 폼 스타일 */
+.form-container {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    font-size: 14px;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    background-color: #F9FAFB;
+    box-sizing: border-box;
+}
+
+.form-group input:focus {
+    outline: none;
+    border-color: #007AFF;
+    box-shadow: 0 0 5px rgba(0, 122, 255, 0.3);
+    background-color: #FFFFFF;
+}
+
+/* 버튼 스타일 */
+button {
+    display: inline-block;
+    width: 100%;
+    padding: 10px;
+    font-size: 16px;
+    color: #FFFFFF;
+    background-color: #007AFF;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+}
+
+button:hover {
+    background-color: #005BBB;
+}
+
+/* 반응형 스타일 */
+@media (max-width: 768px) {
+    .container {
+        padding: 20px;
+    }
+
+    button {
+        font-size: 14px;
+    }
+}

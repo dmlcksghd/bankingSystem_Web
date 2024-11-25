@@ -1,0 +1,77 @@
+/* 기본 컨테이너 */
+        .container {
+            margin: 20px auto;
+            max-width: 1000px;
+            padding: 20px;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #007AFF;
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+
+        /* 거래 내역 테이블 */
+        .transaction-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            background-color: #FFFFFF;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+
+        .transaction-table th,
+        .transaction-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            text-align: center;
+            font-size: 1em;
+        }
+
+        .transaction-table thead {
+            background-color: #007AFF;
+            color: #FFFFFF;
+            font-weight: bold;
+        }
+
+        .transaction-table tbody tr:nth-child(even) {
+            background-color: #F9FAFB;
+        }
+
+        .transaction-table tbody tr:hover {
+            background-color: #f1f1f1;
+            cursor: pointer;
+        }
+
+        /* 드롭다운 스타일 */
+        .account-select-container {
+            margin: 20px auto;
+            text-align: center;
+        }
+
+        #account-select {
+            width: 50%;
+            padding: 10px;
+            font-size: 16px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #F9FAFB;
+            color: #333;
+            transition: box-shadow 0.3s, background-color 0.3s;
+        }
+
+        #account-select:focus {
+            outline: none;
+            border-color: #007AFF;
+            background-color: #FFFFFF;
+            box-shadow: 0 0 8px rgba(0, 122, 255, 0.5);
+        }
+
+        #account-select option {
+            padding: 10px;
+        }

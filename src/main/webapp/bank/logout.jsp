@@ -3,7 +3,7 @@
 <%
     // 세션 무효화
     session.invalidate();
-    // 로그아웃 후 register.jsp로 이동
-    response.sendRedirect("login.jsp");
+    // 로그인 페이지로 이동
+    response.sendRedirect("auth.do");
 %>
     
